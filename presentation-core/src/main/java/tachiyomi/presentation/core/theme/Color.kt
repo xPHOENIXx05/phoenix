@@ -8,5 +8,8 @@ import androidx.compose.ui.graphics.Color
 val ColorScheme.active: Color
     @Composable
     get() {
-        return if (isSystemInDarkTheme()) Color(255, 235, 59) else Color(255, 193, 7)
+        return if (isSystemInDarkTheme())
+            Color(red = 33, green = 150, blue = 243)
+        else
+            Color(red = 25, green = 118, blue = 210)
     }

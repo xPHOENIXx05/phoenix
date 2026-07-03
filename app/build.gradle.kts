@@ -30,7 +30,7 @@ android {
     namespace = "eu.kanade.tachiyomi"
 
     defaultConfig {
-        applicationId = "app.mihon"
+        applicationId = "com.phoenix.reader"
 
         versionCode = 24
         versionName = "0.20.0"
