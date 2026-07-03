@@ -1,5 +1,8 @@
 package eu.kanade.presentation.more.settings.screen
 
+import eu.kanade.presentation.more.settings.screen.TrackingMigrationScreen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -84,6 +87,7 @@ object SettingsTrackingScreen : SearchableSettings {
     @Composable
     override fun getPreferences(): List<Preference> {
         val context = LocalContext.current
+        val navigator = LocalNavigator.currentOrThrow
         val trackPreferences = remember { Injekt.get<TrackPreferences>() }
         val trackerManager = remember { Injekt.get<TrackerManager>() }
         val sourceManager = remember { Injekt.get<SourceManager>() }
@@ -179,8 +183,23 @@ object SettingsTrackingScreen : SearchableSettings {
                                 login = { (service as EnhancedTracker).loginNoop() },
                                 logout = service::logout,
                             )
-                        } + listOf(Preference.PreferenceItem.InfoPreference(enhancedTrackerInfo))
+                        } + listOf(
+                        Preference.PreferenceItem.InfoPreference(enhancedTrackerInfo),
+                    )
                     ),
+            ),
+
+            Preference.PreferenceGroup(
+                title = "Migration",
+                preferenceItems = listOf(
+                    Preference.PreferenceItem.TextPreference(
+                        title = "Migration Center",
+                        subtitle = "Import backups and sync with AniList",
+                        onClick = {
+                            navigator.push(TrackingMigrationScreen)
+                        },
+                    ),
+                ),
             ),
         )
     }
